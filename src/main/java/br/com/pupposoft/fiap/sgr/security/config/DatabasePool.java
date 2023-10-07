@@ -19,7 +19,7 @@ public class DatabasePool {
         config.setJdbcUrl(System.getenv("DATABASE_URL"));
         config.setUsername(System.getenv("DATABASE_USERNAME"));
         config.setPassword(System.getenv("DATABASE_PASSWORD"));
-        config.setMaximumPoolSize(1);
+        config.setMaximumPoolSize(10);
         config.setMinimumIdle(1);
 
         dataSource = new HikariDataSource(config);

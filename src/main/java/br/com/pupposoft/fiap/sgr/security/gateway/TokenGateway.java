@@ -1,9 +1,9 @@
 package br.com.pupposoft.fiap.sgr.security.gateway;
 
-import br.com.pupposoft.fiap.sgr.security.gateway.dto.TokenDto;
+import java.util.Map;
 
 public interface TokenGateway {
 
-	public String generate(TokenDto dto);
+	public String generate(Map<String, Object> infos);
 	
 }

@@ -12,9 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 public class MySqlAdapterGateway implements DatabaseRepositoryGateway {
 
 	@Override
-	public Usuario autenticar(String usuario, String senha) {
+	public Usuario findByCpf(String cpf) {
 		log.trace("Start");
 
+		//TODO: implementar
+		
 		try (Connection conn = DatabasePool.getConnection()) {
 
 			Statement statement = conn.createStatement();
