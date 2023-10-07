@@ -15,7 +15,7 @@ public class DatabasePool {
     static {
 
         final HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.postgresql.Driver");
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.setJdbcUrl(System.getenv("DATABASE_URL"));
         config.setUsername(System.getenv("DATABASE_USERNAME"));
         config.setPassword(System.getenv("DATABASE_PASSWORD"));

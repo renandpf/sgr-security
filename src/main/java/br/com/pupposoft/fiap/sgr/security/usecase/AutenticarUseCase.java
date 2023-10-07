@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
-public class AuthenticateUseCase {
+public class AutenticarUseCase {
 	
 	private DatabaseRepositoryGateway databaseRepositoryGateway;
 	

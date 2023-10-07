@@ -20,12 +20,13 @@ public class MySqlAdapterGateway implements DatabaseRepositoryGateway {
 
 		try (Connection conn = DatabasePool.getConnection()) {
 
-			String query = "select * from Usuario where cpf = ?";
+			final String query = "SELECT * FROM Usuario where cpf = ?;";
+			
 			
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setString(0, cpf);
+			pstmt.setString(1, cpf);
 			
-			ResultSet resultSet = pstmt.getResultSet();
+			ResultSet resultSet = pstmt.executeQuery();
 			
 			Usuario usuario = null;
 			
