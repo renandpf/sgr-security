@@ -1,15 +1,15 @@
-package br.com.pupposoft.fiap.sgr.security.gateway.repository.adapter;
+package br.com.pupposoft.fiap.sgr.security.gateway.repository;
 
 import java.sql.Connection;
 import java.sql.Statement;
 
 import br.com.pupposoft.fiap.sgr.security.config.DatabasePool;
 import br.com.pupposoft.fiap.sgr.security.domain.Usuario;
-import br.com.pupposoft.fiap.sgr.security.gateway.repository.DatabaseRepositoryGateway;
+import br.com.pupposoft.fiap.sgr.security.gateway.DatabaseRepositoryGateway;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CoreRepositoryGateway implements DatabaseRepositoryGateway {
+public class MySqlAdapterGateway implements DatabaseRepositoryGateway {
 
 	@Override
 	public Usuario autenticar(String usuario, String senha) {
