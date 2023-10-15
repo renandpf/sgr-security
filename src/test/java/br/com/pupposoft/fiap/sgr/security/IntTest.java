@@ -30,15 +30,15 @@ class IntTest {
 		environmentVariables.set("DATABASE_USERNAME", "root");
 		environmentVariables.set("DATABASE_PASSWORD", "senha");
 		
-		environmentVariables.set("TOKEN_SECRET_KEY", "anySecretKey");
-		environmentVariables.set("TOKEN_EXPIRATION_TIME_IN_SECOND", "60");
+		environmentVariables.set("TOKEN_SECRET_KEY", "XQG0TQqpEUkukgwK8TMVXbxeVU7Y5TWW2AZzkSAzYLFqq1BeZxKkAUqmrA3zeXvC");
+		environmentVariables.set("TOKEN_EXPIRATION_TIME_IN_SECOND", "3600");
 	}
 	
 	@Test
 	void shouldAutenticadoComSucesso(){
 		LambdaEntrypoint entrypoint = new LambdaEntrypoint();
 		
-		final String anyCpf = "555";
+		final String anyCpf = "666";
 		final String anySenha = "senha";
 		
 		final RequestJson request = new RequestJson(anyCpf, anySenha);
