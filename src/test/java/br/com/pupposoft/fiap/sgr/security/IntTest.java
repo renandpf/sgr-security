@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import br.com.pupposoft.fiap.sgr.security.exception.FalhaAutenticacaoException;
 import br.com.pupposoft.fiap.sgr.security.gateway.entrypoint.LambdaEntrypoint;
-import br.com.pupposoft.fiap.sgr.security.gateway.entrypoint.json.RequestJson;
 import br.com.pupposoft.fiap.sgr.security.gateway.entrypoint.json.ResponseJson;
 import uk.org.webcompere.systemstubs.environment.EnvironmentVariables;
 import uk.org.webcompere.systemstubs.jupiter.SystemStub;
@@ -26,7 +25,7 @@ class IntTest {
 
 	@BeforeAll
 	private static void config() {
-		environmentVariables.set("DATABASE_URL", "jdbc:mysql://127.0.0.1/sgr_security");
+		environmentVariables.set("DATABASE_URL", "jdbc:mysql://127.0.0.1/sgrDbSecurity");
 		environmentVariables.set("DATABASE_USERNAME", "root");
 		environmentVariables.set("DATABASE_PASSWORD", "senha");
 		
@@ -41,13 +40,13 @@ class IntTest {
 		final String anyCpf = "666";
 		final String anySenha = "senha";
 		
-		final RequestJson request = new RequestJson(anyCpf, anySenha);
+		Object requestData = "{username="+ anyCpf +", password="+ anySenha +"}";
 		
-		ResponseJson handleRequest = entrypoint.handleRequest(request, null);
+		ResponseJson handleResponse = entrypoint.handleRequest(requestData, null);
 		
-		assertNotNull(handleRequest);
-		assertNotNull(handleRequest.getToken());
-		System.out.println(handleRequest);
+		assertNotNull(handleResponse);
+		assertNotNull(handleResponse.getBody());
+		System.out.println(handleResponse);
 	}
 	
 	@Test
@@ -57,10 +56,10 @@ class IntTest {
 		final String anyCpf = "555";
 		final String anySenha = "senhaaaaa";
 		
-		final RequestJson request = new RequestJson(anyCpf, anySenha);
+		Object requestData = "{username="+ anyCpf +", password="+ anySenha +"}";
 		
 		assertThrows(FalhaAutenticacaoException.class, () -> {
-			entrypoint.handleRequest(request, null);
+			entrypoint.handleRequest(requestData, null);
 		});
 	}
 	
