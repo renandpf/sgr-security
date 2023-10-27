@@ -27,6 +27,13 @@ jobs:
 
     - name: Build with Maven
       run: mvn -Djar.finalName=sgr-security-generate -B package --file pom.xml
+      
+    - name: PWD
+      run: pwd
+
+    - name: LS
+      run: ls -lha
+
 
     - uses: actions/upload-artifact@master
       with:
