@@ -5,7 +5,8 @@ name: Maven Package
 
 on:
     workflow_run:
-        workflows: [SonarCloud analysis]
+        workflows: 
+            -SonarCloud analysis
         types:
             - completed
 jobs:
