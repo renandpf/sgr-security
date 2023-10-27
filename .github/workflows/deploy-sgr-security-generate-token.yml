@@ -32,13 +32,13 @@ jobs:
       run: pwd
 
     - name: LS
-      run: ls -lha
+      run: ls -lha target/
 
 
     - uses: actions/upload-artifact@master
       with:
         name: sgr-security-generate.jar
-        path: home/runner/work/sgr-security/sgr-security/target/
+        path: target/
 
   deploy-sgr-security-generate-token:
     needs: [build]
