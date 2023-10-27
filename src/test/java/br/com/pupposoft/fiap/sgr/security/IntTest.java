@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import br.com.pupposoft.fiap.sgr.security.exception.FalhaAutenticacaoException;
-import br.com.pupposoft.fiap.sgr.security.gateway.entrypoint.LambdaEntrypoint;
+import br.com.pupposoft.fiap.sgr.security.gateway.entrypoint.GenerateTokenEntrypoint;
 import br.com.pupposoft.fiap.sgr.security.gateway.entrypoint.json.ResponseJson;
 import uk.org.webcompere.systemstubs.environment.EnvironmentVariables;
 import uk.org.webcompere.systemstubs.jupiter.SystemStub;
@@ -35,7 +35,7 @@ class IntTest {
 	
 	@Test
 	void shouldAutenticadoComSucesso(){
-		LambdaEntrypoint entrypoint = new LambdaEntrypoint();
+		GenerateTokenEntrypoint entrypoint = new GenerateTokenEntrypoint();
 		
 		final String anyCpf = "666";
 		final String anySenha = "senha";
@@ -51,7 +51,7 @@ class IntTest {
 	
 	@Test
 	void shouldNaoAutenticado(){
-		LambdaEntrypoint entrypoint = new LambdaEntrypoint();
+		GenerateTokenEntrypoint entrypoint = new GenerateTokenEntrypoint();
 		
 		final String anyCpf = "555";
 		final String anySenha = "senhaaaaa";

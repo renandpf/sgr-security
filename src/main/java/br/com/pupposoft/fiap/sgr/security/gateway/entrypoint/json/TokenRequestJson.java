@@ -9,7 +9,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class RequestJson {
-	private String username;
-	private String password;
+public class TokenRequestJson {
+	private String token;
 }
