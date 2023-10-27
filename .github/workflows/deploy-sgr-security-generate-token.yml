@@ -1,0 +1,83 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Build with Maven
+      run: mvn -Djar.finalName=sgr-security -B package --file pom.xml
+      
+    - uses: actions/upload-artifact@master
+      with:
+        name: sgr-security.jar
+        path: target/
+
+  deploy-sgr-security-generate-token:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+    - name: donwload
+      uses: actions/download-artifact@v3
+      with:
+        name: sgr-security.jar
+        path: target
+
+    - name: Publish sgr-security-generate-token to AWS Lambda
+
+      uses: appleboy/lambda-action@v0.1.9
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: ${{ secrets.AWS_REGION }}
+        function_name: sgr-security-generate-token
+        zip_file: target/sgr-security.jar
+
+  deploy-sgr-security-validate-token:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+    - name: donwload
+      uses: actions/download-artifact@v3
+      with:
+        name: sgr-security.jar
+        path: target
+
+    - name: Publish sgr-security-validate-token to AWS Lambda
+
+      uses: appleboy/lambda-action@v0.1.9
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: ${{ secrets.AWS_REGION }}
+        function_name: sgr-security-validate-token
+        zip_file: target/sgr-security.jar
+      
