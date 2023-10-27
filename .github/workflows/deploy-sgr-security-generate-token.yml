@@ -28,19 +28,10 @@ jobs:
     - name: Build with Maven
       run: mvn -Djar.finalName=sgr-security-generate -B package --file pom.xml
 
-    # - name: Publish to AWS Lambda
-    #   uses: appleboy/lambda-action@v0.1.9
-    #   with:
-    #     aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #     aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #     aws_region: ${{ secrets.AWS_REGION }}
-    #     function_name: sgr-security-generate-token
-    #     zip_file: sgr-security-generate.jar
-        # memory_size: 128
-        # timeout: 10
-        # handler: foobar
-        # role: arn:aws:iam::xxxxxxxxxxx:role/test1234
-        # runtime: nodejs12.x
+    - uses: actions/upload-artifact@master
+      with:
+        name: sgr-security-generate.jar
+        path: home/runner/work/sgr-security/sgr-security/target/
 
   deploy-sgr-security-generate-token:
     needs: [build]
@@ -50,14 +41,21 @@ jobs:
       packages: write
       
     steps:
+    - name: donwload
+      uses: actions/download-artifact@v3
+      with:
+        name: sgr-security-generate.jar
+        path: target
+
     - name: Publish sgr-security-generate-token to AWS Lambda
+
       uses: appleboy/lambda-action@v0.1.9
       with:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ secrets.AWS_REGION }}
         function_name: sgr-security-generate-token
-        zip_file: sgr-security-generate.jar
+        zip_file: target/sgr-security-generate.jar
       # memory_size: 128
       # timeout: 10
       # handler: foobar
