@@ -57,7 +57,7 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ secrets.AWS_REGION }}
         function_name: sgr-security-generate-token
-        zip_file: /home/runner/work/sgr-security/sgr-security/target/sgr-security-generate.jar
+        zip_file: sgr-security-generate.jar
       # memory_size: 128
       # timeout: 10
       # handler: foobar
