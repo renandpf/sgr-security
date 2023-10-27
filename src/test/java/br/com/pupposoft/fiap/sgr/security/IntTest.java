@@ -34,13 +34,25 @@ class IntTest {
 	}
 	
 	@Test
-	void shouldAutenticadoComSucesso(){
+	void shouldAutenticadoComSucessoFromApigateway(){
 		GenerateTokenEntrypoint entrypoint = new GenerateTokenEntrypoint();
 		
 		final String anyCpf = "666";
 		final String anySenha = "senha";
 		
-		Object requestData = "{username="+ anyCpf +", password="+ anySenha +"}";
+		Object requestData = "request={resource=/sgr/login, \n"
+				+ "  path=/sgr/login, \n"
+				+ "  httpMethod=POST, \n"
+				+ "  headers=null, \n"
+				+ "  multiValueHeaders=null, \n"
+				+ "  queryStringParameters=null, \n"
+				+ "  multiValueQueryStringParameters=null, \n"
+				+ "  pathParameters=null, \n"
+				+ "  stageVariables=null, \n"
+				+ "  requestContext={resourceId=q206mq, resourcePath=/sgr/login, httpMethod=POST, extendedRequestId=Nb5r_HFJPHcFqng=, requestTime=27/Oct/2023:00:51:11 +0000, path=/sgr/login, accountId=057028502056, protocol=HTTP/1.1, stage=test-invoke-stage, domainPrefix=testPrefix, requestTimeEpoch=1698367871675, requestId=6e8a7754-10d9-4335-b069-2e47cabaf648, identity={cognitoIdentityPoolId=null, cognitoIdentityId=null, apiKey=test-invoke-api-key, principalOrgId=null, cognitoAuthenticationType=null,     userArn=arn:aws:iam::057028502056:user/renan.admin, apiKeyId=test-invoke-api-key-id, userAgent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36, accountId=057028502056, caller=AIDAIPMNJPQVHVRAGPXG2, sourceIp=test-invoke-source-ip, accessKey=ASIAQ2RZJ4IUI4MVUYNX, cognitoAuthenticationProvider=null, user=AIDAIPMNJPQVHVRAGPXG2}, domainName=testPrefix.testDomainName, apiId=38x0x1l1kg}, \n"
+				+ "	body={\"username\":\""+ anyCpf +"\",\"password\":\""+ anySenha +"\"}, \n"
+				+ "	isBase64Encoded=false\n"
+				+ "}";
 		
 		ResponseJson handleResponse = entrypoint.handleRequest(requestData, null);
 		
