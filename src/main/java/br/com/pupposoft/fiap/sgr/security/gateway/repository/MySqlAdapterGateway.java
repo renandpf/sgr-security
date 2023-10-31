@@ -25,9 +25,9 @@ public class MySqlAdapterGateway implements DatabaseRepositoryGateway {
 			
 			createTableIfNotExist(conn);
 			
+			createUser(conn);
 			
 			final String query = "SELECT * FROM Usuario where cpf = ?;";
-			
 			
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, cpf);
@@ -60,6 +60,22 @@ public class MySqlAdapterGateway implements DatabaseRepositoryGateway {
 
 	}
 
+	private void createUser(Connection conn) throws SQLException {
+		final String queryGetUser = "SELECT * FROM Usuario where cpf = 555;";
+		PreparedStatement pstmt = conn.prepareStatement(queryGetUser);
+		
+		ResultSet resultSet = pstmt.executeQuery();
+		
+		if(resultSet.next()) {
+			return;
+		}
+
+		String createUser = "INSERT INTO `sgrDbSecurity`.`Usuario` (`cpf`, `senha`, `perfil`) VALUES ('555', 'senha', '0')";
+		Statement stmt = conn.createStatement();
+		
+		stmt.executeUpdate(createUser);
+	}
+	
 	private void createTableIfNotExist(Connection conn) throws SQLException {
 		final String createQuery = "CREATE TABLE IF NOT EXISTS `sgrDbSecurity`.`Usuario` (\n"
 				+ "  `id` int NOT NULL AUTO_INCREMENT,\n"
