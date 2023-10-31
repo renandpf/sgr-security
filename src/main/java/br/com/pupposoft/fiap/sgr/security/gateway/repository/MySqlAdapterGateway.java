@@ -3,6 +3,8 @@ package br.com.pupposoft.fiap.sgr.security.gateway.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 
 import br.com.pupposoft.fiap.sgr.security.config.DatabasePool;
@@ -20,6 +22,10 @@ public class MySqlAdapterGateway implements DatabaseRepositoryGateway {
 
 		try (Connection conn = DatabasePool.getConnection()) {
 
+			
+			createTableIfNotExist(conn);
+			
+			
 			final String query = "SELECT * FROM Usuario where cpf = ?;";
 			
 			
@@ -52,5 +58,19 @@ public class MySqlAdapterGateway implements DatabaseRepositoryGateway {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	private void createTableIfNotExist(Connection conn) throws SQLException {
+		final String createQuery = "CREATE TABLE IF NOT EXISTS `sgrDbSecurity`.`Usuario` (\n"
+				+ "  `id` int NOT NULL AUTO_INCREMENT,\n"
+				+ "  `cpf` varchar(11) NOT NULL,\n"
+				+ "  `senha` varchar(10) NOT NULL,\n"
+				+ "  `perfil` bigint NOT NULL,\n"
+				+ "  PRIMARY KEY (`id`)\n"
+				+ ");";
+		
+		Statement stmt = conn.createStatement();
+		
+		stmt.executeUpdate(createQuery);
 	}
 }
