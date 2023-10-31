@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.pupposoft</groupId>
 	<artifactId>sgr-security</artifactId>
-	<version>1.1.0-RELEASE</version>
+	<version>1.2.0-RELEASE</version>
 	<packaging>jar</packaging>
 	<name>Sistema de Gestão de Visitas - Security</name>
 
