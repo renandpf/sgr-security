@@ -70,7 +70,7 @@ public class MySqlAdapterGateway implements DatabaseRepositoryGateway {
 			return;
 		}
 
-		String createUser = "INSERT INTO `sgrDbSecurity`.`Usuario` (`cpf`, `senha`, `perfil`) VALUES ('555', 'senha', '0')";
+		String createUser = "INSERT INTO `sgrDbSecurity`.`Usuario` (`cpf`, `senha`, `perfil`) VALUES ('555', 'senha', '1')";
 		Statement stmt = conn.createStatement();
 		
 		stmt.executeUpdate(createUser);
